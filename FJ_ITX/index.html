@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv='Content-Type' content='1280*720;text/html; charset=utf-8'/>
+    <title></title>
+    <link rel='stylesheet' href='./app/css/main.css'/>
+</head>
+<body style='background-color: transparent; width: 1280px; height: 720px; overflow: hidden;' onunload='page__exit();'>
+<div id='static-tip' class='static-tip'>
+    <div>
+        <div>温馨提示</div>
+        <div>
+            <span id='static-tip-msg'></span>
+        </div>
+    </div>
+</div>
+<div id="portal-tip" class="portal-tip"></div>
+<div id='password' class='password'>
+    <div class='password-title'>温馨提示</div>
+    <div class='password-tip'>请输入密码：</div>
+    <div class='password-focus'></div>
+    <div id='password-box' class='password-box'></div>
+    <div id='password-error' class='password-error'></div>
+    <div id='password-ok' class='password-btn-focus password-ok'>确定</div>
+    <div id='password-cancel' class='password-cancel'>取消</div>
+</div>
+<div id='main'>
+</div>
+</body>
+<script src='./frameworks/JSFBoot.js' jsf-main='app/application-configuration.js'></script>
+<script type='text/javascript'>
+    jsf.boot.config({
+        jsList: [
+            './vendor/jquery/dist/jquery.min.js',
+            './vendor/seajs/dist/sea.js',
+            './vendor/seajs-text/dist/seajs-text.js',
+            './vendor/underscore/underscore-min.js',
+            './vendor/backbone/backbone.js'
+        ],
+        modules: ['qin'],
+        debugMode: 1,
+        ca: 'tongfang'
+    });
+
+    var pageIsReady = false;
+    jsf.boot.run(function () {
+        pageIsReady = true;
+    });
+
+    function page__exit() {
+        if (pageIsReady) {
+            jsf.Setting.enableHomeKey();
+            var Broadcast = seajs.require('service/Broadcast');
+            Broadcast && Broadcast.trigger('media:release');
+        } else {
+            qin.wm.disableHomeKey();
+        }
+    }
+
+    qin.wm.enableHomeKey();
+</script>
+</html>
